@@ -1,0 +1,88 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Felles Renovate-preset for Framtidmedia-no, Gange-Rolv-AS og frlund3. Månedlig kadens (første dag i måneden), sikkerhetsfikser går alltid utenom schedule. Repo-spesifikke regler ligger i hvert repos renovate.json ETTER extends.",
+  "extends": [
+    "config:recommended"
+  ],
+  "timezone": "Europe/Oslo",
+  "schedule": [
+    "before 6am on the first day of the month"
+  ],
+  "rangeStrategy": "bump",
+  "labels": [
+    "dependencies"
+  ],
+  "prConcurrentLimit": 10,
+  "minimumReleaseAge": "3 days",
+  "packageRules": [
+    {
+      "description": "Minor og patch samles i én PR og automerges når CI er grønn.",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "minor and patch updates",
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "description": "Majors kommer som ÉN PR PER PAKKE, ikke i én bunt. Lærdom fra publify#549, GangeRolv-Drift#1611, myrvoll#200 og Espeland (aug 2026): en samle-PR med alle majors kan ikke merges hvis én av dem er blokkert, og den røper ikke hvilken pakke som er problemet. Én PR per pakke lander eller feiler på egne bein.",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "labels": [
+        "dependencies",
+        "major"
+      ]
+    },
+    {
+      "description": "brace-expansion@1 skal holdes på patched v1-linje (^1.1.16+ dekker ReDoS-CVE-en) — v5 brekker minimatch@3/ESLint («TypeError: expand is not a function», verifisert 2026-08-10 i budogvare og Framtidtech). Fjern denne når minimatch-økosystemet er på brace-expansion v2+/v5.",
+      "matchPackageNames": [
+        "brace-expansion"
+      ],
+      "matchCurrentVersion": "/^[\\^~]?1\\./",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "typescript skal holdes på v5-linja — typescript-eslint (via eslint-config-next) støtter kun TypeScript <5.10/<6.1, og TS 7 får linten til å krasje («typescript-eslint does not support TS 7.0», verifisert 2026-08-20). TS 7 fjerner også baseUrl og implisitt any-fallback for React-typer (Sammenforlaget, framtid-design-system, Matkasse). Fjern denne når typescript-eslint har TS 7-støtte.",
+      "matchPackageNames": [
+        "typescript"
+      ],
+      "matchCurrentVersion": "/^[\\^~]?5\\./",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "eslint skal holdes på v9-linja — eslint-plugin-react@7.37.5 (bundlet av eslint-config-next 16.3.1) bruker context.getFilename() som er fjernet i ESLint 10, og hele linten krasjer med «contextOrFilename.getFilename is not a function». Fjern denne når eslint-plugin-react har ESLint 10 i peerDependencies.",
+      "matchPackageNames": [
+        "eslint"
+      ],
+      "matchCurrentVersion": "/^[\\^~]?9\\./",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": [
+      "before 6am on the first day of the month"
+    ]
+  },
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": [
+      "security"
+    ],
+    "schedule": [
+      "at any time"
+    ]
+  }
+}
