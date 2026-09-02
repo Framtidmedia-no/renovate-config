@@ -37,6 +37,19 @@
       ]
     },
     {
+      "description": "Overrides/resolutions skal ALDRI major-bumpes automatisk. En override er et bevisst gulv (som regel en CVE-fiks) for en transitiv pakke, og konsumenten deklarerer sitt eget range — en major på overriden tvinger konsumenten over på en versjon den ikke støtter. Lærdom 01.09.2026: Renovate bumpet `nanoid: ^3 → ^6` i Framtidtech (#353) og infoskjerm (#321); nanoid ≥5 er ESM-only, postcss (CJS, ^3) krasjet med ERR_REQUIRE_ESM og ga 500 på alle bloggsider i prod. CI var grønn fordi Node ≥22.12 støtter require() av ESM. Minor/patch på overrides er fortsatt OK (samme major = CVE-gulvet flyttes trygt).",
+      "matchDepTypes": [
+        "overrides",
+        "pnpm.overrides",
+        "pnpm-workspace.overrides",
+        "resolutions"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
+    },
+    {
       "description": "brace-expansion@1 skal holdes på patched v1-linje (^1.1.16+ dekker ReDoS-CVE-en) — v5 brekker minimatch@3/ESLint («TypeError: expand is not a function», verifisert 2026-08-10 i budogvare og Framtidtech). Fjern denne når minimatch-økosystemet er på brace-expansion v2+/v5.",
       "matchPackageNames": [
         "brace-expansion"
