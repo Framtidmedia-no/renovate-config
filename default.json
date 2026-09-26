@@ -14,9 +14,10 @@
   ],
   "prConcurrentLimit": 10,
   "minimumReleaseAge": "3 days",
+  "dependencyDashboard": false,
   "packageRules": [
     {
-      "description": "Minor og patch samles i én PR og automerges når CI er grønn.",
+      "description": "Minor og patch samles i én PR og automerges når CI er grønn. platformAutomerge er AV: Renovate merger selv, og bare når ALLE sjekker på PR-en er grønne — uten sjekker merges ingenting (ignoreTests er ikke satt). Med GitHub-native automerge ville PR-en blitt merget straks i repoer uten påkrevde sjekker i branch protection — det gjaldt 37 av 43 kartlagte repoer 26.09.2026 (FRA-188).",
       "matchUpdateTypes": [
         "minor",
         "patch"
@@ -24,7 +25,7 @@
       "groupName": "minor and patch updates",
       "automerge": true,
       "automergeType": "pr",
-      "platformAutomerge": true
+      "platformAutomerge": false
     },
     {
       "description": "Majors kommer som ÉN PR PER PAKKE, ikke i én bunt. Lærdom fra publify#549, GangeRolv-Drift#1611, myrvoll#200 og Espeland (aug 2026): en samle-PR med alle majors kan ikke merges hvis én av dem er blokkert, og den røper ikke hvilken pakke som er problemet. Én PR per pakke lander eller feiler på egne bein.",

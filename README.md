@@ -26,7 +26,12 @@ GangeRolv-Drift, kjernegruppene i Framtid-AD/widget-plattform) legges i repoets 
   Sikkerhetsfikser (`vulnerabilityAlerts`) går alltid utenom schedule.
 - **minimumReleaseAge 3 dager**: nyutgivelser må modne før de foreslås — beskytter mot
   ødelagte utgivelser (jf. Sentry 10.72.0, aug 2026).
-- **Minor/patch**: samles i én PR og automerges på grønn CI.
+- **Minor/patch**: samles i én PR og automerges på grønn CI. Renovate merger selv
+  (`platformAutomerge: false`) og venter på *alle* sjekker på PR-en — ikke GitHubs
+  auto-merge, som bare venter på påkrevde sjekker i branch protection. De fleste
+  repoene har ingen påkrevde sjekker, og da ville GitHub merget umiddelbart.
+- **Ingen Dependency Dashboard** (`dependencyDashboard: false`): issuet ble speilet til
+  Linear som en sak som aldri kan lukkes (FRA-188). Majors kommer fortsatt som egne PR-er.
 - **Majors**: én PR per pakke, aldri automerge, label `major`.
 - **Økosystem-sperrer**: TypeScript 5.x, ESLint 9.x, brace-expansion 1.x — se
   beskrivelsene i `default.json` for begrunnelse og når de kan fjernes.
