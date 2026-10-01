@@ -91,7 +91,7 @@
     ]
   },
   "vulnerabilityAlerts": {
-    "enabled": true,
+    "description": "IKKE sett enabled: true her. Renovate legger vulnerabilityAlerts oppå ALLE packageRules via `force`, så enabled: true overstyrer reglene over som skrur av major-bump (overrides, brace-expansion@1, typescript). Notar-Sol#49 (01.10.2026) foreslo brace-expansion@<2 til ^5 som sikkerhets-PR og knakk minimatch@3/ESLint, selv om ^1.1.21 allerede er patchet.",
     "labels": [
       "security"
     ],
