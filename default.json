@@ -29,7 +29,7 @@
       "platformAutomerge": false
     },
     {
-      "description": "GitHub Actions pinnes til full commit-SHA (helpers:pinGitHubActionDigests), også reusable workflows i Framtidmedia-no/ci-workflows. Forutsetning for å kunne kreve SHA-pinning i enterprise-policyen for Actions (FRA-1748). Pin-PR-er endrer ikke oppførsel og samles i én PR per repo; automerge på grønn CI som for minor/patch. Pin går utenom månedlig schedule: pinning gjelder bare actions som ikke er pinnet fra før og endrer ikke oppførsel, så utrullingen skjer i løpet av få dager i stedet for å vente til første dag i måneden.",
+      "description": "GitHub Actions pinnes til full commit-SHA (helpers:pinGitHubActionDigests), også reusable workflows i Framtidmedia-no/ci-workflows. Forutsetning for å kunne kreve SHA-pinning i enterprise-policyen for Actions (FRA-1748). Pin-PR-er endrer ikke oppførsel og samles i én PR per repo; automerge på grønn CI som for minor/patch. Pin går utenom månedlig schedule: pinning gjelder bare actions som ikke er pinnet fra før og endrer ikke oppførsel, så utrullingen skjer i løpet av få dager i stedet for å vente til første dag i måneden. Ingen minimumReleaseAge: en pin låser bare SHA-en til taggen som allerede kjører og introduserer ingen ny versjon, så aldersgrensen ville bare forsinket pinningen med tre dager.",
       "matchManagers": [
         "github-actions"
       ],
@@ -40,6 +40,7 @@
       "schedule": [
         "at any time"
       ],
+      "minimumReleaseAge": "0 days",
       "groupName": "pin github actions",
       "automerge": true,
       "automergeType": "pr",
