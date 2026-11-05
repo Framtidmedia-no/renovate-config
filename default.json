@@ -16,9 +16,10 @@
   "prConcurrentLimit": 10,
   "minimumReleaseAge": "3 days",
   "dependencyDashboard": false,
+  "ignoreTests": false,
   "packageRules": [
     {
-      "description": "Minor og patch samles i én PR og automerges når CI er grønn. platformAutomerge er AV: Renovate merger selv, og bare når ALLE sjekker på PR-en er grønne — uten sjekker merges ingenting (ignoreTests er ikke satt). Med GitHub-native automerge ville PR-en blitt merget straks i repoer uten påkrevde sjekker i branch protection — det gjaldt 37 av 43 kartlagte repoer 26.09.2026 (FRA-188).",
+      "description": "Minor og patch samles i én PR og automerges når CI er grønn. platformAutomerge er AV: Renovate merger selv, og bare når ALLE sjekker på PR-en er grønne — uten sjekker merges ingenting (ignoreTests er ikke satt). Med GitHub-native automerge ville PR-en blitt merget straks i repoer uten påkrevde sjekker i branch protection — det gjaldt 37 av 43 kartlagte repoer 26.09.2026 (FRA-188). Socket (FRA-1763): der Socket-appen er installert, er «Socket Security: Pull Request Alerts» og «Socket Security: Project Report» sjekker på PR-en, og en Socket-sjekk som ikke er grønn stopper automerge på samme måte som all annen CI (Renovate regner failure som rød og alt som ikke er success, neutral eller skipped som ventende). Preseten kan ikke kreve et sjekknavn; det gjør branch protection/ruleset (se README).",
       "matchUpdateTypes": [
         "minor",
         "patch"

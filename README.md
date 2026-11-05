@@ -30,6 +30,17 @@ GangeRolv-Drift, kjernegruppene i Framtid-AD/widget-plattform) legges i repoets 
   (`platformAutomerge: false`) og venter på *alle* sjekker på PR-en — ikke GitHubs
   auto-merge, som bare venter på påkrevde sjekker i branch protection. De fleste
   repoene har ingen påkrevde sjekker, og da ville GitHub merget umiddelbart.
+- **Socket (FRA-1763):** der Socket-appen er installert (Framtidmedia-no og Gange-Rolv-AS, alle
+  repoer) legger den to check runs på hver PR: «Socket Security: Pull Request Alerts» og «Socket Security: Project
+  Report» (verifisert på Somify, Vegsundno og GangeRolv-Drift 05.11.2026). Renovate leser alle check runs
+  (`getBranchStatus` i GitHub-plattformen) og automerger bare når ingen er failure og alle
+  er success, neutral eller skipped. `ignoreTests: false` står eksplisitt i preseten så ingen
+  kan tro at den er av. **Preseten kan ikke kreve et bestemt sjekknavn.** Det som garanterer
+  at ingen merge skjer uten grønn Socket er at sjekken er *påkrevd* i branch protection eller
+  ruleset: da avviser GitHub også Renovates merge via API. Legg kontekstene over til i
+  `required_status_checks` når Socket er installert i repoet (ikke før: en påkrevd sjekk som
+  aldri kommer blokkerer alle merger). Endringen i preseten er en eksplisitt `ignoreTests: false`,
+  som er Renovates standard, så ingen repoer (heller ikke Gange-Rolv) får endret oppførsel.
 - **Ingen Dependency Dashboard** (`dependencyDashboard: false`): issuet ble speilet til
   Linear som en sak som aldri kan lukkes (FRA-188). Majors kommer fortsatt som egne PR-er.
 - **Majors**: én PR per pakke, aldri automerge, label `major`.
