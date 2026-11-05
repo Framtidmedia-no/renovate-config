@@ -101,6 +101,17 @@
         "major"
       ],
       "enabled": false
+    },
+    {
+      "description": "supabase (CLI-pakken) skal holdes på v2-linja til CI-jobbene er migrert. CLI v3 (2. nov 2026) er local-by-default: `db push`/`migration list`/`gen types` går mot lokal stack uten `--remote`, og endringer mot hosted feiler i CI uten `--yes`. Migrasjonsjobbene som går mot hosted er migrert (FRA-1779), men scripts som kaller `npx supabase …` er ikke gjennomgått. Fjern denne når alle `supabase`-kall i package.json-scripts og CI bruker `--remote`/`--yes`.",
+      "matchPackageNames": [
+        "supabase"
+      ],
+      "matchCurrentVersion": "/^[\\^~]?2\\./",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
     }
   ],
   "lockFileMaintenance": {
